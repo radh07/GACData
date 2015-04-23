@@ -58,17 +58,6 @@ data4 <- aggregate(value ~ activityid + subid + variable, data3, mean)
 data4$variable<-gsub("-", "", data4$variable)
 data4$variable<-gsub("\\(\\)", "", data4$variable)
 
-
-###################################################################################
-## Write out the dataset to a txt file. This is the long form.
-## Number of rows =
-## 30 (number of subjects) * 6 (number of activities) * 66 (number of measurements) = 11880
-## Number of cols = 4 (activityid, subid, variable, value)
-## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ NOTE ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ 
-## This is NOT the final data set submitted. I used the wide form created in the following step.
-
-write.table(data4, "tidy-long.txt", quote=FALSE)
-
 ###################################################################################
 ## Cast the data frame to write out each "variable" as an attribute with the 
 ## corresonding "value"
@@ -82,7 +71,7 @@ activities<-read.table("activity_labels.txt", header=FALSE, sep="",
                        col.names=c("activityid", "activity"))
 
 ###################################################################################
-## Merge activities with data5
+## Merge activities with data5 and then remove the activity id column
 
 data6<- merge(data5, activities)
 data6<- data6[,-1]
